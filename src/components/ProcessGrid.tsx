@@ -1,0 +1,78 @@
+"use client";
+
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+
+const steps = [
+    { id: '01', title: 'Discover', desc: 'Understanding your business, target audience, and project goals.' },
+    { id: '02', title: 'Define', desc: 'Creating a strategic plan and defining the scope and structure.' },
+    { id: '03', title: 'Design', desc: 'Crafting visually stunning designs that align with your brand.' },
+    { id: '04', title: 'Deliver', desc: 'Building, testing, and launching the final product to the world.' }
+];
+
+export default function ProcessGrid() {
+    const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+
+    return (
+        <section className="py-24 px-6 md:px-12 bg-black text-white w-full border-t border-white/10">
+
+            <div className="flex justify-between items-end mb-16">
+                <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight uppercase flex items-center gap-4">
+                    <span className="text-accent">+</span>Xzero® Method
+                </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-white/10">
+                {steps.map((step, idx) => (
+                    <motion.div
+                        key={step.id}
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                        className={`group relative p-8 h-[350px] md:h-[400px] border-r border-b border-white/10 flex flex-col justify-between cursor-pointer overflow-hidden transition-colors duration-500`}
+                        onMouseEnter={() => setHoveredIdx(idx)}
+                        onMouseLeave={() => setHoveredIdx(null)}
+                        animate={{
+                            backgroundColor: hoveredIdx === idx ? 'var(--accent)' : 'transparent',
+                            color: hoveredIdx === idx ? '#fff' : '#fff'
+                        }}
+                    >
+                        <div className="text-xl md:text-2xl font-bold opacity-50 relative z-10 transition-opacity">
+                            {step.id}
+                        </div>
+
+                        <div className="relative z-10">
+                            <h3 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase mb-4 tracking-tighter">
+                                {step.title}
+                            </h3>
+
+                            <motion.p
+                                className="text-lg md:text-xl font-medium"
+                                animate={{
+                                    opacity: hoveredIdx === idx ? 1 : 0.6,
+                                }}
+                            >
+                                {step.desc}
+                            </motion.p>
+                        </div>
+
+                        {/* Background Arrow that scales up on hover */}
+                        <motion.div
+                            className="absolute top-8 right-8 text-8xl md:text-[150px] font-thin opacity-0 -rotate-45 pointer-events-none"
+                            animate={{
+                                opacity: hoveredIdx === idx ? 0.2 : 0,
+                                x: hoveredIdx === idx ? 0 : -20,
+                                y: hoveredIdx === idx ? 0 : 20,
+                                scale: hoveredIdx === idx ? 1 : 0.5
+                            }}
+                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                            →
+                        </motion.div>
+                    </motion.div>
+                ))}
+            </div>
+        </section>
+    );
+}
