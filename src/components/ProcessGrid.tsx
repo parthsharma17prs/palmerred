@@ -14,20 +14,32 @@ export default function ProcessGrid() {
     const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
     return (
-        <section className="py-32 px-6 md:px-12 bg-black text-white w-full border-t border-white/10">
+        <section className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32">
 
-            <div className="flex justify-between items-end mb-24 overflow-hidden">
-                <motion.h2
-                    initial={{ y: 100 }}
-                    whileInView={{ y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-6xl md:text-8xl lg:text-9xl font-normal font-bebas tracking-tighter uppercase flex items-baseline gap-4"
-                >
-                    HOW WE <span className="text-accent underline underline-offset-[20px] decoration-accent/20">WORK</span>
-                </motion.h2>
+            {/* Phase Indicator */}
+            <div className="absolute left-6 top-60 hidden xl:flex flex-col items-center gap-12 z-20">
+                <span className="[writing-mode:vertical-lr] rotate-180 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Validation Phase</span>
+                <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+                <span className="text-accent font-bebas text-2xl tracking-tighter tabular-nums">005</span>
+            </div>
 
-                <p className="text-white/20 text-xs font-black uppercase tracking-[0.4em] hidden md:block pb-4">Our Collaborative Process</p>
+            <div className="flex justify-between items-end mb-32 relative z-10 border-l border-white/5 pl-12 overflow-hidden">
+                <div className="flex flex-col gap-4">
+                    <span className="text-accent-lime font-bebas text-sm tracking-[0.4em] uppercase flex items-center gap-4">
+                        Workflow <span className="text-white/10 text-[10px] tracking-widest font-sans">// LOGIC_STACK</span>
+                    </span>
+                    <motion.h2
+                        initial={{ y: 100 }}
+                        whileInView={{ y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                        className="text-6xl md:text-8xl lg:text-9xl font-normal font-bebas tracking-tighter uppercase leading-[0.8]"
+                    >
+                        HOW WE <span className="text-accent underline underline-offset-[20px] decoration-accent/20">WORK</span>
+                    </motion.h2>
+                </div>
+
+                <p className="text-white/20 text-xs font-black uppercase tracking-[0.4em] hidden md:block pb-4 tracking-widest">// SYSTEM_PROCESS_v2.01</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-white/10">
@@ -56,12 +68,14 @@ export default function ProcessGrid() {
                             </h3>
 
                             <motion.p
-                                className="text-lg md:text-xl font-medium"
+                                className="text-lg md:text-xl font-medium relative"
                                 animate={{
                                     opacity: hoveredIdx === idx ? 1 : 0.6,
                                 }}
                             >
-                                {step.desc}
+                                <span className={`${hoveredIdx === idx ? 'text-white' : 'text-transparent bg-clip-text bg-gradient-to-br from-white/40 via-white/10 to-transparent'}`}>
+                                    {step.desc}
+                                </span>
                             </motion.p>
                         </div>
 

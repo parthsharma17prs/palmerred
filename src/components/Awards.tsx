@@ -4,11 +4,11 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useState, useRef } from 'react';
 
 const partners = [
-    { year: 'ANCHOR', title: 'Algorand Protocol', project: 'Immutable Audit Anchoring', img: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2232&auto=format&fit=crop' },
-    { year: 'PRIVACY', title: 'Aleo Network', project: 'Private ZK Computation', img: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2232&auto=format&fit=crop' },
-    { year: 'PROOF', title: 'Zcash Protocol', project: 'Confidential Attestations', img: 'https://images.unsplash.com/photo-1621416848446-9f6efdec6f0e?q=80&w=2070&auto=format&fit=crop' },
-    { year: 'OSCAL', title: 'NIST Standards', project: 'Standardized Compliance', img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop' },
-    { year: 'REGULATORY', title: 'ISO/IEC Frameworks', project: 'Global Compliance Mapping', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
+    { year: 'ANCHOR', title: 'Algorand Protocol', project: 'Immutable Audit Anchoring', img: 'https://framerusercontent.com/images/m1X3CPZ5JCv6sVqH5a9SzUuuXTo.jpg' },
+    { year: 'PRIVACY', title: 'Aleo Network', project: 'Private ZK Computation', img: 'https://framerusercontent.com/images/r0qjn23eNOAVLQfk3TzhfFjNhe4.jpg' },
+    { year: 'PROOF', title: 'Zcash Protocol', project: 'Confidential Attestations', img: 'https://framerusercontent.com/images/VT310qn9CgKuOTrXFOLhZALciE.png' },
+    { year: 'OSCAL', title: 'NIST Standards', project: 'Standardized Compliance', img: 'https://framerusercontent.com/images/WmDGeUasQkCARkfUExK22qAlDFc.png' },
+    { year: 'REGULATORY', title: 'ISO/IEC Frameworks', project: 'Global Compliance Mapping', img: 'https://framerusercontent.com/images/8rcXl0j3NquReHM8SwF3VK8zQ.png' },
 ];
 
 export default function Awards() {
@@ -25,18 +25,27 @@ export default function Awards() {
     return (
         <section
             onMouseMove={handleMouseMove}
-            className="py-32 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden"
+            className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32"
         >
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-8">
+            {/* Phase Indicator */}
+            <div className="absolute left-6 top-60 hidden xl:flex flex-col items-center gap-12 z-20">
+                <span className="[writing-mode:vertical-lr] rotate-180 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Distribution Phase</span>
+                <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+                <span className="text-accent font-bebas text-2xl tracking-tighter tabular-nums">004</span>
+            </div>
+
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-8 relative z-10 border-l border-white/5 pl-12">
                 <div className="flex flex-col gap-4">
-                    <span className="text-accent font-bebas text-sm tracking-[0.4em] uppercase">Ecosystem</span>
-                    <h2 className="text-5xl md:text-7xl lg:text-8xl font-normal font-bebas tracking-tighter uppercase leading-[0.8]">
+                    <span className="text-accent font-bebas text-sm tracking-[0.4em] uppercase flex items-center gap-4">
+                        Ecosystem <span className="text-accent-lime text-[10px] tracking-widest font-sans">// SHARED_RESOURCES</span>
+                    </span>
+                    <h2 className="text-5xl md:text-7xl lg:text-9xl font-normal font-bebas tracking-tighter uppercase leading-[0.8]">
                         NETWORK & <br /> <span className="text-white/20">PARTNERS</span>
                     </h2>
                 </div>
 
-                <p className="text-xl text-white/50 max-w-sm leading-relaxed font-sans">
-                    Leveraging world-class blockchain protocols and regulatory frameworks to deliver provable compliance.
+                <p className="text-xl md:text-2xl text-white/50 max-w-sm leading-relaxed font-light">
+                    Leveraging <span className="text-white">world-class</span> blockchain protocols and regulatory frameworks to deliver <span className="text-accent-lime">provable</span> compliance.
                 </p>
             </div>
 

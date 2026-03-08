@@ -78,10 +78,25 @@ export default function Navbar() {
                                         <Link
                                             href="#"
                                             onClick={() => setIsOpen(false)}
-                                            className="group flex items-center gap-4 text-5xl md:text-6xl font-bold hover:text-accent transition-colors tracking-tight"
+                                            className="group relative overflow-hidden flex items-baseline gap-4 text-5xl md:text-6xl font-bold hover:text-accent transition-colors tracking-tight"
                                         >
-                                            {item}
-                                            <span className="opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-2">→</span>
+                                            <div className="relative flex flex-col">
+                                                <motion.span
+                                                    className="inline-block"
+                                                    whileHover={{ y: '-100%' }}
+                                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                                >
+                                                    {item}
+                                                </motion.span>
+                                                <motion.span
+                                                    className="absolute top-full left-0 inline-block text-accent"
+                                                    whileHover={{ y: '-100%' }}
+                                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                                >
+                                                    {item}
+                                                </motion.span>
+                                            </div>
+                                            <span className="text-sm opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-2">→</span>
                                         </Link>
                                     </motion.div>
                                 ))}
@@ -96,9 +111,22 @@ export default function Navbar() {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.5 + idx * 0.1, duration: 0.5 }}
-                                        className="text-2xl md:text-3xl font-medium hover:text-accent transition-colors flex items-center justify-between w-full md:w-auto md:gap-8 border-b border-white/10 md:border-none pb-2 md:pb-0"
+                                        className="group relative overflow-hidden text-2xl md:text-3xl font-medium hover:text-accent transition-colors flex items-center justify-between w-full md:w-auto md:gap-8 border-b border-white/10 md:border-none pb-2 md:pb-0"
                                     >
-                                        {soc}
+                                        <div className="relative flex flex-col h-10 overflow-hidden">
+                                            <motion.span
+                                                className="inline-block"
+                                                whileHover={{ y: '-100%' }}
+                                            >
+                                                {soc}
+                                            </motion.span>
+                                            <motion.span
+                                                className="absolute top-full left-0 inline-block text-accent"
+                                                whileHover={{ y: '-100%' }}
+                                            >
+                                                {soc}
+                                            </motion.span>
+                                        </div>
                                         <span className="text-sm">↗</span>
                                     </motion.a>
                                 ))}

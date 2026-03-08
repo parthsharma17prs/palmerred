@@ -16,7 +16,14 @@ export default function WhatWeDo() {
     const containerRef = useRef(null);
 
     return (
-        <section ref={containerRef} className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden">
+        <section ref={containerRef} className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32">
+
+            {/* Phase Indicator */}
+            <div className="absolute left-6 top-60 hidden xl:flex flex-col items-center gap-12 z-20">
+                <span className="[writing-mode:vertical-lr] rotate-180 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Operational Phase</span>
+                <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+                <span className="text-accent font-bebas text-2xl tracking-tighter tabular-nums">002</span>
+            </div>
 
             {/* Ambient Red Splash Background Logic */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -38,9 +45,11 @@ export default function WhatWeDo() {
                 </AnimatePresence>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-12 md:gap-24 mb-32 relative z-10">
+            <div className="flex flex-col md:flex-row gap-12 md:gap-24 mb-32 relative z-10 border-l border-white/5 pl-12">
                 <div className="flex flex-col gap-4 w-full md:w-1/3">
-                    <span className="text-accent font-bebas text-sm tracking-[0.4em] uppercase">Expertise</span>
+                    <span className="text-accent font-bebas text-sm tracking-[0.4em] uppercase flex items-center gap-4">
+                        Expertise <span className="text-white/10 text-[10px] tracking-widest font-sans">// CAPABILITY_MAP</span>
+                    </span>
                     <motion.h2
                         initial={{ y: 50, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
@@ -57,9 +66,9 @@ export default function WhatWeDo() {
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-xl md:text-2xl font-normal text-white/50 max-w-xl leading-relaxed mt-auto"
+                    className="text-xl md:text-2xl font-light text-white/50 max-w-xl leading-relaxed mt-auto"
                 >
-                    We transform creative vision into reality. Partnering with forward-thinking agencies and ambitious brands to craft premium digital experiences.
+                    We replace invasive audits with persistent verification. Partnering with <span className="text-white">enterprise leaders</span> and <span className="text-white">Web3 protocols</span> to craft high-assurance digital ecosystems.
                 </motion.p>
             </div>
 
