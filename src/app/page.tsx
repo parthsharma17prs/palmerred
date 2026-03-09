@@ -9,6 +9,11 @@ import GiantText from '@/components/GiantText';
 import FeaturedWorks from '@/components/FeaturedWorks';
 import WhatWeDo from '@/components/WhatWeDo';
 import ProcessGrid from '@/components/ProcessGrid';
+import MetricGrid from '@/components/MetricGrid';
+import SystemBlueprint from '@/components/SystemBlueprint';
+import CoreManifesto from '@/components/CoreManifesto';
+import TeamPortraits from '@/components/TeamPortraits';
+import GoodWords from '@/components/GoodWords';
 import Awards from '@/components/Awards';
 import LabNotes from '@/components/LabNotes';
 import Footer from '@/components/Footer';
@@ -36,10 +41,15 @@ export default function Home() {
         <Hero />
         <Marquee text="Provable Compliance  •  Zero Data Exposure  •  Zero-Knowledge Proofs  •  " />
         <WhatWeDo />
+        <MetricGrid />
         <ProcessGrid />
+        <SystemBlueprint />
         <FeaturedWorks />
         <GiantText text="+PROOF®" />
+        <CoreManifesto />
         <Awards />
+        <TeamPortraits />
+        <GoodWords />
         <LabNotes />
         <Footer />
       </motion.main>

@@ -25,7 +25,10 @@ export default function Footer() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-normal font-bebas tracking-tighter uppercase leading-[0.8]">
+                        {/* Red Splash Hover Effect */}
+                        <div className="absolute inset-x-[-100px] inset-y-[-50px] bg-accent/0 group-hover:bg-accent/100 transition-all duration-700 blur-[100px] rounded-full pointer-events-none -z-10" />
+
+                        <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-normal font-bebas tracking-tighter uppercase leading-[0.8] transition-colors duration-500 group-hover:text-black">
                             Let's Talk
                             <motion.span
                                 className="inline-block ml-4 transform -rotate-45"

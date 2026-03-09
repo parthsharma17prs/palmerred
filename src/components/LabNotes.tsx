@@ -5,63 +5,74 @@ import { motion } from 'framer-motion';
 export default function LabNotes() {
     const posts = [
         {
-            id: 1,
+            id: '01',
             title: 'Proof-Based Compliance: A Shift to State Verification',
             category: 'Infrastructure',
-            date: 'Oct 12, 2025'
+            date: 'Oct 12, 2025',
+            img: 'https://framerusercontent.com/images/klui2LLRQBdbyFubR7YMjvGySA.jpg'
         },
         {
-            id: 2,
+            id: '02',
             title: 'Zero-Knowledge Proofs in Regulatory Frameworks',
             category: 'Cryptography',
-            date: 'Sep 28, 2025'
+            date: 'Sep 28, 2025',
+            img: 'https://framerusercontent.com/images/WmDGeUasQkCARkfUExK22qAlDFc.png'
         },
         {
-            id: 3,
+            id: '03',
             title: 'Autonomizing Audits: AI in Continuous Assurance',
             category: 'Agentic AI',
-            date: 'Sep 15, 2025'
+            date: 'Sep 15, 2025',
+            img: 'https://framerusercontent.com/images/8rcXl0j3NquReHM8SwF3VK8zQ.png'
         },
         {
-            id: 4,
+            id: '04',
             title: 'The Future of Privacy: Secure Compliance Logic',
             category: 'Innovation',
-            date: 'Aug 04, 2025'
+            date: 'Aug 04, 2025',
+            img: 'https://framerusercontent.com/images/VT310qn9CgKuOTrXFOLhZALciE.png'
         }
     ];
 
     return (
-        <section className="py-24 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden">
+        <section className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32">
 
-            {/* Background massive text overlay */}
-            <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] md:text-[20vw] font-black text-white/5 whitespace-nowrap uppercase tracking-tighter mix-blend-screen pointer-events-none z-0">
-                COMPLIANCE INSIGHTS
-            </h2>
+            {/* Phase Indicator */}
+            <div className="absolute left-6 top-60 hidden xl:flex flex-col items-center gap-12 z-20">
+                <span className="[writing-mode:vertical-lr] rotate-180 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Archive Phase</span>
+                <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+                <span className="text-accent font-bebas text-2xl tracking-tighter tabular-nums">006</span>
+            </div>
 
-            <div className="flex justify-between items-center mb-16 relative z-10 border-b border-white/10 pb-12">
-                <motion.h2
-                    initial={{ x: -30, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="text-5xl md:text-7xl lg:text-9xl font-normal font-bebas tracking-tighter uppercase leading-[0.8]"
-                >
-                    Deep <br /><span className="text-accent underline decoration-8 underline-offset-8">Insights</span>
-                </motion.h2>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 relative z-10 border-l border-white/5 pl-12 gap-8">
+                <div className="flex flex-col gap-4">
+                    <span className="text-accent font-bebas text-sm tracking-[0.4em] uppercase flex items-center gap-4">
+                        Deep Insights <span className="text-white/10 text-[10px] tracking-widest font-sans">// THEORY_LAB</span>
+                    </span>
+                    <motion.h2
+                        initial={{ x: -30, opacity: 0 }}
+                        whileInView={{ x: 0, opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="text-6xl md:text-8xl lg:text-9xl font-normal font-bebas tracking-tighter uppercase leading-[0.8]"
+                    >
+                        INTEL & <br /><span className="text-accent underline underline-offset-[20px] decoration-accent/20">REPORTS</span>
+                    </motion.h2>
+                </div>
 
-                <div className="flex flex-col items-end gap-4 text-right">
-                    <p className="text-white/40 max-w-[200px] text-xs font-medium uppercase tracking-[0.2em] hidden md:block">
-                        Philosophy on privacy, cryptography, and the future of regulatory technology.
+                <div className="flex flex-col items-end gap-12 text-right">
+                    <p className="text-xl text-white/40 max-w-sm font-light leading-relaxed">
+                        Philosophy on privacy, cryptography, and the <span className="text-white">autonomous future</span> of regulatory technology.
                     </p>
-                    <button className="flex items-center gap-3 text-white font-bold uppercase tracking-widest text-xs group">
-                        <span className="group-hover:text-accent transition-colors">Everything</span>
-                        <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all">
-                            <span className="text-lg">→</span>
+                    <button className="flex items-center gap-6 text-white font-black uppercase tracking-widest text-xs group">
+                        <span className="group-hover:text-accent transition-colors">Enter Archive</span>
+                        <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-accent group-hover:border-accent group-hover:text-black transition-all">
+                            <span className="text-2xl">→</span>
                         </div>
                     </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-l border-white/5 relative z-10">
                 {posts.map((post, idx) => (
                     <motion.article
                         key={post.id}
@@ -69,30 +80,33 @@ export default function LabNotes() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="group cursor-pointer bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-8 hover:border-accent/40 transition-all duration-500 relative flex flex-col justify-between aspect-square lg:aspect-auto min-h-[400px]"
+                        className="group cursor-pointer border-r border-b border-white/10 p-12 hover:bg-white/[0.01] transition-all duration-700 relative flex flex-col justify-between min-h-[500px]"
                     >
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-1000 overflow-hidden pointer-events-none">
+                            <img src={post.img} className="w-full h-full object-cover grayscale" alt="" />
+                        </div>
+
                         <div className="relative z-10">
-                            <div className="flex justify-between items-start mb-12">
-                                <span className="text-white/30 text-xs font-bold uppercase tracking-[0.3em] font-bebas">
-                                    /{post.id.toString().padStart(2, '0')}
+                            <div className="flex justify-between items-start mb-16">
+                                <span className="text-white/30 text-2xl font-bebas tracking-tighter">
+                                    /{post.id}
                                 </span>
-                                <span className="text-[10px] font-black text-accent uppercase tracking-widest border border-accent/20 px-3 py-1 rounded-full">
+                                <span className="text-[10px] font-black text-accent-lime uppercase tracking-widest border border-accent-lime/20 px-3 py-1 rounded-sm bg-accent-lime/5">
                                     {post.category}
                                 </span>
                             </div>
 
-                            <h3 className="text-3xl md:text-4xl lg:text-3xl font-normal font-bebas uppercase tracking-tighter leading-none group-hover:text-accent transition-colors duration-300">
+                            <h3 className="text-4xl lg:text-5xl font-normal font-bebas uppercase tracking-tighter leading-none group-hover:text-accent transition-colors duration-500">
                                 {post.title}
                             </h3>
                         </div>
 
-                        <div className="mt-12 flex items-center justify-between relative z-10 border-t border-white/5 pt-8">
-                            <span className="text-white/20 text-[10px] font-bold uppercase tracking-widest">{post.date}</span>
-                            <div className="w-8 h-[1px] bg-white/10 group-hover:w-16 group-hover:bg-accent transition-all duration-500"></div>
+                        <div className="mt-12 flex items-center justify-between relative z-10 border-t border-accent/20 pt-8">
+                            <span className="text-white/20 text-[10px] font-black uppercase tracking-widest">{post.date}</span>
+                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
+                                <span className="text-xl">+</span>
+                            </div>
                         </div>
-
-                        {/* Topographic mask/glow effect on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2rem]"></div>
                     </motion.article>
                 ))}
             </div>
