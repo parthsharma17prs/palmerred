@@ -17,26 +17,41 @@ export default function TheSolutionPage() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 text-sm font-medium mb-8"
                 >
                     <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                    Zero-Knowledge Proofs
+                    How we fix it
                 </motion.div>
 
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.1 }}
-                    className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 leading-[1.1]"
+                    className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-12 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 leading-[1.1]"
                 >
-                    Prove it mathematically.
+                    Compliance should be provable,<br />not invasive.
                 </motion.h1>
 
-                <motion.p
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-lg md:text-2xl text-white/50 max-w-3xl leading-relaxed"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-5xl w-full"
                 >
-                    By combining Agentic AI for analysis and Zero-Knowledge Proofs for verification, you can prove you meet regulatory frameworks—such as SOC2 or ISO27001—without revealing any core data.
-                </motion.p>
+                    <div className="bg-white/5 border border-white/10 p-8 rounded-2xl">
+                        <h3 className="text-xl font-bold mb-3 text-white">Continuous Compliance</h3>
+                        <p className="text-white/60">Prove you are compliant without mirroring systems, copying logs, or centralizing raw evidence.</p>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 p-8 rounded-2xl">
+                        <h3 className="text-xl font-bold mb-3 text-white">Proof Instead of Privileged Access</h3>
+                        <p className="text-white/60">Share cryptographic proofs instead of screenshots, exports, or direct access to sensitive environments.</p>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 p-8 rounded-2xl">
+                        <h3 className="text-xl font-bold mb-3 text-white">Automation instead of spreadsheets</h3>
+                        <p className="text-white/60">AI agents keep controls mapped, tested, and up to date as your systems change.</p>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 p-8 rounded-2xl">
+                        <h3 className="text-xl font-bold mb-3 text-white">Privacy instead of exposure</h3>
+                        <p className="text-white/60">Verification events are anchored across Algorand, Aleo, and Zcash for independent verifiability.</p>
+                    </div>
+                </motion.div>
             </div>
 
             {/* Background Texture Detail */}

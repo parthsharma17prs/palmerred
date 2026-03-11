@@ -12,46 +12,88 @@ function getRandomChar() {
 
 export default function Template({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const [isRouting, setIsRouting] = useState(false);
-    const [scramble, setScramble] = useState("");
+    const [isVisible, setIsVisible] = useState(false);
+
+    const text = "Loading CompliLedger...";
+    const [revealedCount, setRevealedCount] = useState(0);
+    const [displayChars, setDisplayChars] = useState<string[]>([]);
+
+    // Internal preloader is slightly faster
+    const PRELOADER_DURATION = 1400;
+    const REVEAL_DELAY_MS = 30;
+    const FLIP_DELAY_MS = 20;
 
     // Detect internal route changes (not the first paint, to avoid colliding with Global Preloader)
     useEffect(() => {
-        // Skip root page since the global PageReveal handles the huge 2.2s intro there.
         if (pathname === "/") return;
 
-        setIsRouting(true);
-        let flips = 0;
-        const targetText = "SECURE_ROUTE_ESTABLISHED";
+        setIsVisible(true);
+        setDisplayChars(Array.from({ length: text.length }).map(c => getRandomChar()));
+        setRevealedCount(0);
 
-        const interval = setInterval(() => {
-            flips++;
-            setScramble(Array.from({ length: targetText.length }).map(() => getRandomChar()).join(""));
+        let start = performance.now();
+        let lastFlip = start;
+        let animationFrameId: number;
 
-            if (flips > 8) {
-                clearInterval(interval);
-                setScramble(targetText);
-                setTimeout(() => setIsRouting(false), 300);
+        const tick = (now: number) => {
+            const elapsed = now - start;
+
+            const currentRevealed = Math.min(text.length, Math.floor(elapsed / Math.max(1, REVEAL_DELAY_MS)));
+            setRevealedCount(currentRevealed);
+
+            if (currentRevealed >= text.length) {
+                return;
             }
-        }, 40);
 
-        return () => clearInterval(interval);
+            if (now - lastFlip >= Math.max(0, FLIP_DELAY_MS)) {
+                setDisplayChars(prev => {
+                    const next = [...prev];
+                    for (let i = currentRevealed; i < text.length; i++) {
+                        if (text[i] !== " ") next[i] = getRandomChar();
+                        else next[i] = " ";
+                    }
+                    return next;
+                });
+                lastFlip = now;
+            }
+
+            animationFrameId = requestAnimationFrame(tick);
+        };
+
+        animationFrameId = requestAnimationFrame(tick);
+
+        const timeout = setTimeout(() => {
+            setIsVisible(false);
+        }, PRELOADER_DURATION);
+
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            clearTimeout(timeout);
+        };
     }, [pathname]);
 
     return (
         <>
             <AnimatePresence>
-                {isRouting && (
+                {isVisible && (
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0, filter: "blur(10px)" }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-[99998] bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center font-mono pointer-events-none"
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        className="fixed inset-0 z-[100000] bg-black flex items-center justify-center font-sans pointer-events-none"
                     >
-                        <div className="text-blue-500/80 text-sm mb-4 tracking-[0.3em]">ROUTING PROTOCOL</div>
-                        <div className="text-white text-xl sm:text-2xl font-bold tracking-widest">
-                            {scramble}
+                        <div className="text-white text-2xl md:text-4xl tracking-wider select-none">
+                            {text.split("").map((char, index) => {
+                                const isRevealed = index < revealedCount;
+                                const displayChar = isRevealed ? char : (char === " " ? " " : displayChars[index] || getRandomChar());
+                                return (
+                                    <span
+                                        key={index}
+                                        className={isRevealed ? "text-white font-semibold" : "text-white/60"}
+                                    >
+                                        {displayChar}
+                                    </span>
+                                );
+                            })}
                         </div>
                     </motion.div>
                 )}
@@ -60,7 +102,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
             <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: pathname === "/" ? 0 : 0.6 }}
+                transition={{ duration: 0.6, delay: pathname === "/" ? 0 : (PRELOADER_DURATION / 1000) + 0.1 }}
             >
                 {children}
             </motion.div>

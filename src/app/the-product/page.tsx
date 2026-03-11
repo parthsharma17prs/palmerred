@@ -17,7 +17,7 @@ export default function TheProductPage() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-sm font-medium mb-8"
                 >
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    CompliLedger Platform v2.0
+                    CompliLedger Platform
                 </motion.div>
 
                 <motion.h1
@@ -26,17 +26,42 @@ export default function TheProductPage() {
                     transition={{ duration: 0.8, delay: 0.1 }}
                     className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 leading-[1.1]"
                 >
-                    The OS for Compliance.
+                    The system of record.
                 </motion.h1>
 
-                <motion.p
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-lg md:text-2xl text-white/50 max-w-3xl leading-relaxed"
+                    className="text-lg md:text-2xl text-white/50 max-w-3xl leading-relaxed mx-auto text-left flex flex-col items-center"
                 >
-                    A unified dashboard connecting data silos, generating OSCAL reports in real-time, mapping software bill of materials (SBOM), and providing indisputable cryptographic evidence.
-                </motion.p>
+                    <p className="mb-6 text-center">
+                        The CompliLedger Platform is the system of record, verification engine, and control plane for compliance. Everything else connects to this platform.
+                    </p>
+
+                    <h3 className="text-2xl font-bold text-white mb-4 mt-8">Audit- and regulator-ready outputs</h3>
+                    <ul className="space-y-4 mb-8 text-left inline-block">
+                        <li className="flex items-start gap-4">
+                            <span className="text-white mt-1">•</span>
+                            <span>SSPs, SAPs, SARs, POA&Ms, PIAs</span>
+                        </li>
+                        <li className="flex items-start gap-4">
+                            <span className="text-white mt-1">•</span>
+                            <span>Cryptographic proof bundles</span>
+                        </li>
+                        <li className="flex items-start gap-4">
+                            <span className="text-white mt-1">•</span>
+                            <span>Regulator-verifiable attestations</span>
+                        </li>
+                        <li className="flex items-start gap-4">
+                            <span className="text-white mt-1">•</span>
+                            <span>Time-bound compliance certificates</span>
+                        </li>
+                    </ul>
+                    <p className="text-white/80 font-semibold mb-6 text-center">
+                        Auditors verify proofs — not screenshots. Regulators validate attestations — not raw data.
+                    </p>
+                </motion.div>
             </div>
 
             {/* Background Texture Detail */}

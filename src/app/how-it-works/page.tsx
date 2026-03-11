@@ -26,17 +26,29 @@ export default function HowItWorksPage() {
                     transition={{ duration: 0.8, delay: 0.1 }}
                     className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 leading-[1.1]"
                 >
-                    Agentic Analysis.<br />Cryptographic Anchors.
+                    Connected. Verified.
                 </motion.h1>
 
-                <motion.p
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-lg md:text-2xl text-white/50 max-w-3xl leading-relaxed"
+                    className="text-lg md:text-2xl text-white/50 max-w-4xl leading-relaxed mx-auto"
                 >
-                    Our master agents continuously ingest state from your repositories to ensure configurations meet NIST guidelines. Results are hashed and stored eternally on Aleo and Algorand.
-                </motion.p>
+                    <p className="mb-8">
+                        Agents plug into the CompliLedger Platform, where outputs become cryptographically verifiable evidence, framework-aligned artifacts, audit-ready records, and regulator-verifiable proofs.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                        <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                            <h3 className="text-white font-bold mb-2">Ingestion</h3>
+                            <p className="text-white/60 text-base">Our master agents continuously ingest state from your repositories to ensure configurations meet NIST guidelines and security controls.</p>
+                        </div>
+                        <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                            <h3 className="text-white font-bold mb-2">Verification via Zero-Knowledge</h3>
+                            <p className="text-white/60 text-base">Results are mathematically hashed and validated through cryptographic proofs without exposing any underlying secrets or architectures.</p>
+                        </div>
+                    </div>
+                </motion.div>
             </div>
 
             {/* Background Texture Detail */}
