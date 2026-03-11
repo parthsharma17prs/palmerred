@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import Diamond3D from './three/Diamond3D';
 
 export default function LabNotes() {
     const posts = [
@@ -42,6 +43,11 @@ export default function LabNotes() {
                 <span className="[writing-mode:vertical-lr] rotate-180 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Archive Phase</span>
                 <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
                 <span className="text-accent font-bebas text-2xl tracking-tighter tabular-nums">006</span>
+            </div>
+
+            {/* 3D Visual Accent */}
+            <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20 z-0">
+                <Diamond3D />
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 relative z-10 border-l border-white/5 pl-12 gap-8">

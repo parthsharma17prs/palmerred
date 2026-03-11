@@ -2,19 +2,18 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import Helix3D from './three/Helix3D';
+
 
 const testimonials = [
     { quote: "CompliLedger didn't just automate our audits; they replaced them with mathematical certainty. Invaluable infrastructure.", author: "Parth Sharma", role: "CTO @ Global FinStream" },
-    { quote: "The ZK implementation is the most robust we've seen. We now verify our governance protocols without exposing a single line of sensitive metadata.", author: "Dr. Elena Vance", role: "Head of Infrastructure @ Protocol Labs" },
-    { quote: "Finally, a solution that understands enterprise privacy. Persistent verification is the new standard for government standards.", author: "Agent X-90", role: "Security Architect @ Cyber Command" },
-    { quote: "Their agentic AI system caught a logic vulnerability in our smart contracts that three human audits missed. Truly next-level.", author: "Satoshi Nakamoto (Simulated)", role: "Lead Dev @ Nexus Protocol" },
-    { quote: "The speed of proof generation is breathtaking. We can now run real-time compliance checks across 50,000 nodes simultaneously.", author: "Sarah Jenkins", role: "VP Engineering @ CloudScale" },
+    { quote: "The ZK implementation is the most robust we've seen. We now verify our governance protocols without exposing metadata.", author: "Dr. Elena Vance", role: "Head of Infrastructure @ Protocol Labs" },
+    { quote: "Finally, a solution that understands enterprise privacy. Persistent verification is the new standard.", author: "Agent X-90", role: "Security Architect @ Cyber Command" },
+    { quote: "Their agentic AI system caught a logic vulnerability that three human audits missed. Truly next-level.", author: "Satoshi Nakamoto (Simulated)", role: "Lead Dev @ Nexus Protocol" },
+    { quote: "The speed of proof generation is breathtaking. We can now run real-time compliance checks across 50,000 nodes.", author: "Sarah Jenkins", role: "VP Engineering @ CloudScale" },
     { quote: "CompliLedger is the missing piece in the puzzle of institutional DeFi. Privacy and transparency in perfect harmony.", author: "David Wu", role: "Managing Director @ BlackBlock Capital" },
-    { quote: "A revolutionary approach to regulatory technology. They've turned compliance from a bottleneck into a competitive advantage.", author: "Linda Park", role: "General Counsel @ Fintech Global" },
+    { quote: "A revolutionary approach to regulatory technology. They've turned compliance from a bottleneck into an advantage.", author: "Linda Park", role: "General Counsel @ Fintech Global" },
     { quote: "The most significant advancement in compliance since the introduction of SOC2. A complete paradigm shift.", author: "Robert Chen", role: "Head of Risk @ Axiom Bank" },
-    { quote: "Immutable audit trails on Algorand provide our stakeholders with unprecedented transparency without compromising our privacy.", author: "Sofia Rodriguez", role: "COO @ Vertigo Assets" },
-    { quote: "Zero-Knowledge proofs are the future of digital trust, and CompliLedger is leading the charge with elegant, scalable solutions.", author: "Alan Turing (Legacy AI)", role: "Chief Scientist @ Cipher Labs" },
-    { quote: "We've reduced our compliance costs by 70% while improving our security posture by 10x. The ROI is undeniable.", author: "Vikram Desai", role: "CFO @ TechHorizon" },
 ];
 
 
@@ -27,6 +26,11 @@ export default function GoodWords() {
 
     return (
         <section ref={sectionRef} className="py-20 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32">
+
+            {/* 3D Helix Visual */}
+            <div className="absolute left-[-5%] top-0 bottom-0 w-[400px] pointer-events-none opacity-20 z-0 hidden lg:block">
+                <Helix3D />
+            </div>
 
             <div className="flex flex-col md:flex-row justify-between items-end mb-32 relative z-10 border-l border-white/5 pl-12">
                 <div className="flex flex-col gap-4">
@@ -56,22 +60,21 @@ export default function GoodWords() {
 
 function TestimonialRow({ t, idx, scrollYProgress }: any) {
     // Each row has a different drift speed and direction
-    const driftRange = 300 + (idx % 3) * 150;
+    const driftRange = 200 + (idx % 3) * 100;
     const direction = idx % 2 === 0 ? 1 : -1;
     const x = useTransform(scrollYProgress, [0, 1], [-driftRange * direction, driftRange * direction]);
-    const y = useTransform(scrollYProgress, [0, 1], [30 * direction, -30 * direction]);
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="py-16 md:py-24 border-b border-white/10 group cursor-default transition-all duration-700 hover:bg-white/[0.01]"
+            viewport={{ once: true, margin: "0px" }}
+            transition={{ duration: 0.8, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
+            className="py-12 md:py-20 border-b border-white/10 group cursor-default transition-colors duration-500 hover:bg-white/[0.01]"
         >
             <motion.div
-                style={{ x, y }}
-                className="flex flex-col md:flex-row gap-12 md:gap-24 items-start whitespace-nowrap lg:whitespace-normal"
+                style={{ x }}
+                className="flex flex-col md:flex-row gap-12 md:gap-24 items-start"
             >
                 <span className="text-accent font-bebas text-2xl lg:text-4xl tabular-nums opacity-20">0{idx + 1}</span>
                 <div className="flex flex-col gap-8 max-w-5xl">

@@ -94,9 +94,8 @@ function WorkCard({ work, idx }: any) {
                     </div>
 
                     <motion.img
-                        style={{ y }}
                         src={work.img}
-                        className="w-full h-[130%] object-cover absolute top-[-15%] grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
                         alt={work.title}
                     />
 

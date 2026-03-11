@@ -2,6 +2,8 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import WaveMesh3D from './three/WaveMesh3D';
+
 
 const lines = [
     "COMPLIANCE IS NOT A POINT-IN-TIME EVENT.",
@@ -25,6 +27,10 @@ export default function CoreManifesto() {
         <section ref={containerRef} className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32 min-h-screen flex items-center">
 
             {/* Background High-Velocity Layer */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+                <WaveMesh3D />
+            </div>
+
             <motion.div
                 style={{ x: backgroundX }}
                 className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.03] pointer-events-none select-none z-0"

@@ -1,220 +1,147 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
-import { useRef, useEffect } from 'react';
-import Magnetic from './Magnetic';
+import { motion } from 'framer-motion';
+import Shield3D from './three/Shield3D';
+import GlassCube3D from './three/GlassCube3D';
+import { GLSLHills } from './ui/glsl-hills';
 
 export default function Hero() {
-    const lines = ["Compliance", "without", "surveillance"];
-    const containerRef = useRef(null);
-
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end start"]
-    });
-
-    const mouseX = useMotionValue(0.5);
-    const mouseY = useMotionValue(0.5);
-
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            mouseX.set(e.clientX / window.innerWidth);
-            mouseY.set(e.clientY / window.innerHeight);
-        };
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, [mouseX, mouseY]);
-
-    const springX = useSpring(mouseX, { stiffness: 60, damping: 20 });
-    const springY = useSpring(mouseY, { stiffness: 60, damping: 20 });
-
-    const rotateX = useTransform(springY, [0, 1], [15, -15]);
-    const rotateY = useTransform(springX, [0, 1], [-15, 15]);
-    const imgX = useTransform(springX, [0, 1], [-40, 40]);
-    const imgY = useTransform(springY, [0, 1], [-40, 40]);
-
-    // Background watermark drift
-    const watermarkX = useTransform(scrollYProgress, [0, 1], [0, -400]);
-
     return (
-        <section ref={containerRef} className="relative w-full min-h-screen pt-40 pb-32 px-6 lg:px-12 flex flex-col justify-center overflow-hidden bg-black selection:bg-accent selection:text-black">
+        <section className="hero-section relative w-full pt-48 pb-32 px-6 lg:px-12 flex flex-col items-center justify-center overflow-hidden bg-[#0b0c0f] selection:bg-white/20" style={{ minHeight: '100vh' }}>
 
-            {/* Vertical Phase Indicator */}
-            <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-12 z-20">
-                <span className="[writing-mode:vertical-lr] rotate-180 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Phase // System Baseline</span>
-                <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-                <span className="text-accent font-bebas text-2xl tracking-tighter tabular-nums">001</span>
+            {/* Ambient Lighting Accents */}
+            <div className="absolute inset-0 pointer-events-none opacity-40 z-0">
+                <div className="absolute top-[10%] left-[20%] w-[350px] h-[350px] bg-blue-500/10 blur-[100px] rounded-full" />
+                <div className="absolute top-[30%] right-[15%] w-[450px] h-[450px] bg-indigo-500/10 blur-[120px] rounded-full" />
             </div>
 
-            {/* Background Watermark */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.02] flex items-center">
+            {/* Background Texture from compliledger.com */}
+            <div
+                className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+                style={{
+                    backgroundImage: 'url(https://www.compliledger.com/images/privacy-bg.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    mixBlendMode: 'screen'
+                }}
+            />
+
+            {/* GLSL Hills Background Effect from 21st.dev component */}
+            <div className="absolute inset-0 pointer-events-none z-[0] w-full h-full overflow-hidden">
+                <GLSLHills width="100vw" height="100vh" />
+            </div>
+
+            {/* Subtle 3D Elements as Background Elements (not overpowering) */}
+            <div className="absolute left-[-15%] top-[20%] w-[700px] h-[700px] pointer-events-none opacity-20 z-0 mix-blend-screen">
+                <GlassCube3D />
+            </div>
+            <div className="absolute right-[-10%] top-[40%] w-[600px] h-[600px] pointer-events-none opacity-20 z-0 mix-blend-screen">
+                <Shield3D />
+            </div>
+
+            {/* Central Content representing 21st.dev style high-impact typography */}
+            <div className="relative z-10 flex flex-col items-center text-center max-w-[1000px] mx-auto w-full gap-6">
+
+                {/* Micro-badge */}
                 <motion.div
-                    style={{ x: watermarkX }}
-                    className="text-[40rem] font-black font-bebas whitespace-nowrap leading-none uppercase select-none will-change-transform"
+                    initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl mb-4 shadow-xl"
                 >
-                    TRUST_PROTOCOL &nbsp; COMPLIANCE_NODE &nbsp; ZERO_DATA &nbsp;
+                    <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    <span className="text-white/80 text-sm font-medium tracking-wide">
+                        CompliLedger Platform v2.0
+                    </span>
+                    <span className="text-blue-400 text-sm ml-2 font-bold cursor-pointer hover:underline">
+                        Read Announcement →
+                    </span>
                 </motion.div>
-            </div>
 
-            {/* Elegant Background Glow */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {/* Main Hero Text (using tracking-tighter for that modern corporate look) */}
+                <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[6.5rem] font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 leading-[1.02]"
+                    style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                    Proof Based Compliance <br className="hidden md:block" /> Infrastructure
+                </motion.h1>
+
+                {/* Description Text */}
+                <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-lg md:text-xl lg:text-2xl text-white/50 max-w-3xl leading-relaxed mt-4 font-sans font-light"
+                >
+                    Continuous, privacy-preserving compliance proof for companies, auditors, and regulators.
+                </motion.p>
+
+                {/* Feature Tags or Checkmarks */}
                 <motion.div
-                    animate={{
-                        scale: [1, 1.1, 1],
-                        opacity: [0.03, 0.08, 0.03],
-                    }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                    className="absolute -top-[10%] -right-[5%] w-[1200px] h-[1200px] bg-accent blur-[250px] rounded-full will-change-transform"
-                />
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mt-4 text-sm font-medium text-white/40"
+                >
+                    <div className="flex items-center gap-2">
+                        <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                        Zero-Knowledge Proofs
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                        Agentic AI Analysis
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                        Automated Reporting
+                    </div>
+                </motion.div>
+
+                {/* Primary CTA Buttons */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 w-full sm:w-auto"
+                >
+                    <button className="w-full sm:w-auto px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-white/90 transition-all text-base shadow-[0_0_40px_rgba(255,255,255,0.15)] transform hover:scale-[1.02] active:scale-100">
+                        Get Started
+                    </button>
+                    <button className="group w-full sm:w-auto px-8 py-4 bg-white/[0.03] text-white font-semibold rounded-full border border-white/10 hover:bg-white/[0.08] transition-all text-base transform hover:scale-[1.02] active:scale-100 flex items-center justify-center gap-2">
+                        Book a Demo
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                </motion.div>
+
             </div>
 
-            <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-32 relative z-10 w-full max-w-[1800px] mx-auto xl:pl-24">
-                {/* Left Content */}
-                <div className="flex-1 w-full max-w-5xl">
-                    <div className="flex items-center gap-4 mb-12">
-                        <motion.div
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{ duration: 1.2, ease: "circOut" }}
-                            className="w-12 h-[1px] bg-accent origin-left"
-                        />
-                        <motion.span
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1, delay: 0.5 }}
-                            className="text-accent font-bebas text-sm tracking-[0.5em] uppercase flex items-center gap-4"
-                        >
-                            <span>Provable Compliance. Zero Data Exposure.</span>
-                            <span className="text-white/10 hidden md:inline">// REF: 0x902_BASELINE</span>
-                        </motion.span>
-                    </div>
-
-                    <h1 className="text-7xl md:text-[8rem] lg:text-[12rem] font-normal font-bebas leading-[0.8] tracking-tighter uppercase mb-12">
-                        {lines.map((line, index) => (
-                            <div key={index} className="overflow-hidden relative">
-                                <motion.span
-                                    className={`inline-block ${line === "surveillance" ? "text-white/20" : "text-white"} relative`}
-                                    initial={{ y: "110%", skewY: 10 }}
-                                    animate={{ y: 0, skewY: 0 }}
-                                    transition={{
-                                        duration: 1.4,
-                                        delay: index * 0.15,
-                                        ease: [0.16, 1, 0.3, 1]
-                                    }}
-                                >
-                                    {line}
-
-                                    {/* Light Sweep Effect for main words */}
-                                    {line !== "surveillance" && (
-                                        <motion.div
-                                            animate={{ left: ['-100%', '200%'] }}
-                                            transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: 2 }}
-                                            className="absolute top-0 bottom-0 w-20 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 pointer-events-none"
-                                        />
-                                    )}
-                                </motion.span>
-                            </div>
-                        ))}
-                    </h1>
-
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.2, duration: 0.8 }}
-                            className="text-xl md:text-2xl text-white/50 max-w-xl leading-relaxed font-light"
-                        >
-                            Most compliance tools <span className="text-white/80">collect data</span>, centralize evidence, and increase risk. CompliLedger works differently. We verify compliance state <span className="text-accent italic font-medium tracking-tight">cryptographically</span>.
-                        </motion.p>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 1.5, duration: 0.8 }}
-                            className="flex flex-col gap-6 justify-end border-l border-white/5 pl-8 md:pl-12"
-                        >
-                            <div className="flex flex-col gap-1">
-                                <span className="text-white/20 text-[10px] uppercase tracking-[0.4em] font-black">System Status</span>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                                    <span className="text-xl font-bebas text-white uppercase tracking-widest">Protocol Sync Global</span>
-                                </div>
-                            </div>
-                            <div className="flex gap-4">
-                                <span className="text-white font-bebas text-lg opacity-40">Load: 12.4%</span>
-                                <span className="text-white font-bebas text-lg opacity-40">Latency: 4ms</span>
-                                <span className="text-white font-bebas text-lg opacity-40">Proof: Verified</span>
-                            </div>
-                        </motion.div>
-                    </div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.8, duration: 0.8 }}
-                        className="mt-20 flex flex-col md:flex-row gap-12 md:items-center"
-                    >
-                        <Magnetic strength={0.25}>
-                            <button className="group relative px-16 py-6 bg-white text-black font-black uppercase tracking-[0.3em] text-[10px] rounded-full overflow-hidden transition-all duration-700 hover:text-white">
-                                <div className="absolute inset-0 bg-accent scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700 ease-out" />
-                                <span className="relative z-10">Explore Infrastructure</span>
-                            </button>
-                        </Magnetic>
-
-                        <div className="flex gap-12 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
-                            {["Algorand", "Aleo", "Zcash"].map((p) => (
-                                <span key={p} className="text-white font-bebas text-2xl tracking-tighter uppercase">{p}</span>
-                            ))}
-                        </div>
-                    </motion.div>
+            {/* Trusted By / Built Across block */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.2, delay: 0.8 }}
+                className="relative z-10 mt-32 w-full max-w-5xl mx-auto flex flex-col items-center gap-8 border-t border-white/[0.05] pt-12"
+            >
+                <span className="text-white/30 text-xs font-semibold uppercase tracking-[0.2em]">built across multiple privacy-focused blockchains</span>
+                <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                    <span className="text-2xl font-bold font-sans tracking-tight">Algorand</span>
+                    <span className="text-2xl font-bold font-sans tracking-tight">Aleo</span>
+                    <span className="text-2xl font-bold font-sans tracking-tight">Zcash</span>
+                    <span className="text-2xl font-bold font-sans tracking-tight">Ethereum</span>
                 </div>
+            </motion.div>
 
-                {/* Right Visual */}
-                <div className="perspective-[2500px] w-full lg:w-[700px] flex-shrink-0 mt-20 lg:mt-0">
-                    <motion.div
-                        style={{ rotateX, rotateY }}
-                        className="relative h-[800px] lg:h-[950px] overflow-hidden rounded-[4rem] bg-neutral-900 border border-white/5 shadow-[0_120px_200px_-50px_rgba(0,0,0,0.9)] will-change-transform"
-                        initial={{ opacity: 0, scale: 0.95, rotateY: -10 }}
-                        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
-                    >
-                        <motion.img
-                            style={{ x: imgX, y: imgY, scale: 1.15 }}
-                            src="https://framerusercontent.com/images/klui2LLRQBdbyFubR7YMjvGySA.jpg"
-                            alt="Technical Infrastructure"
-                            className="w-full h-full object-cover brightness-[0.8] will-change-transform"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-black/90 via-transparent to-accent/5" />
+            {/* Background Texture Detail */}
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay pointer-events-none z-50 rounded-lg" />
 
-                        {/* Interactive Floating Card */}
-                        <motion.div
-                            style={{ x: useTransform(springX, [0, 1], [30, -30]), y: useTransform(springY, [0, 1], [30, -30]) }}
-                            className="absolute bottom-16 left-16 p-10 bg-black/80 backdrop-blur-3xl border border-white/5 rounded-[2.5rem] w-[380px] shadow-2xl group transition-all duration-700 hover:border-accent/40 will-change-transform"
-                        >
-                            <div className="flex flex-col gap-6">
-                                <div className="flex justify-between items-start">
-                                    <span className="text-accent text-[10px] font-black uppercase tracking-[0.4em]">System Node // 0xFE</span>
-                                    <span className="text-white/20 text-xs font-mono font-bold tracking-widest">v2.01_PROD</span>
-                                </div>
-                                <h4 className="text-4xl font-normal font-bebas text-white leading-none tracking-tighter">Cryptographic <br /> <span className="text-accent">Integrity</span></h4>
-
-                                <div className="flex items-center gap-6 mt-4">
-                                    <div className="w-14 h-[1px] bg-white/10 group-hover:w-full transition-all duration-700 origin-left" />
-                                    <div className="flex items-center gap-2 flex-shrink-0">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-accent-lime" />
-                                        <span className="text-[10px] text-white/40 uppercase tracking-widest font-black">Online</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                </div>
-            </div>
-
-            {/* Background Texture Overlay */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+            {/* Bottom Gradient Fade */}
+            <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#0b0c0f] to-transparent pointer-events-none" />
         </section>
     );
 }
-

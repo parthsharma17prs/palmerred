@@ -19,10 +19,10 @@ export default function StickySection({ children, index }: StickySectionProps) {
     const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
 
     return (
-        <section ref={container} className="relative h-[150vh] bg-black">
-            <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+        <section ref={container} className="relative h-[120vh] bg-black">
+            <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden will-change-transform">
                 <motion.div
-                    style={{ scale, opacity }}
+                    style={{ opacity, translateZ: 0 }}
                     className="w-full h-full flex flex-col items-center justify-center"
                 >
                     {children}

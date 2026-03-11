@@ -10,21 +10,17 @@ export default function GiantText({ text }: { text: string }) {
         offset: ["start start", "end start"]
     });
 
-    // High-velocity parallax layers
-    const x1 = useTransform(scrollYProgress, [0, 1], [0, -500]);
-    const x2 = useTransform(scrollYProgress, [0, 1], [0, 500]);
-
-    // Dramatic Scaling from smallish to "filling the frame"
-    const scale = useTransform(scrollYProgress, [0, 0.7], [0.5, 2.5]);
-
-    // Smooth transition from scaling to swiping up
-    const y = useTransform(scrollYProgress, [0.7, 1], [0, -400]);
+    // Optimized Parallax + Zoom
+    const x1 = useTransform(scrollYProgress, [0, 1], [0, -300]);
+    const x2 = useTransform(scrollYProgress, [0, 1], [0, 300]);
+    const scale = useTransform(scrollYProgress, [0, 0.8], [0.8, 1.5]); // Conservative zoom
+    const y = useTransform(scrollYProgress, [0.7, 1], [0, -200]);
 
     // Fading out at the very end
     const opacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
 
     return (
-        <section ref={containerRef} className="h-[250vh] w-full bg-black relative">
+        <section ref={containerRef} className="h-[180vh] w-full bg-black relative">
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
                 {/* Background Layer (Fast) */}
                 <motion.h2
@@ -36,7 +32,7 @@ export default function GiantText({ text }: { text: string }) {
 
                 <motion.div
                     style={{ scale, y, opacity }}
-                    className="flex flex-col items-center justify-center relative z-10"
+                    className="flex flex-col items-center justify-center relative z-10 will-change-transform"
                 >
                     <motion.h2
                         style={{ x: x2 }}

@@ -1,10 +1,16 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import Diamond3D from './three/Diamond3D';
+
 
 export default function Footer() {
     return (
-        <footer className="w-full bg-black text-white px-6 md:px-12 pt-32 pb-12 overflow-hidden">
+        <footer className="w-full bg-black text-white px-6 md:px-12 pt-32 pb-12 overflow-hidden relative">
+            {/* 3D Visual */}
+            <div className="absolute left-[70%] top-[40%] w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-20 z-0">
+                <Diamond3D />
+            </div>
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/20 pb-16">
 
                 <div className="flex flex-col gap-6 w-full max-w-2xl">

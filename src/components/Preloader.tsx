@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const words = [
-    "Web Development",
-    "Cyber Security",
-    "UI/UX Design",
-    "Cloud Solutions",
-    "Digital Strategy"
+    "Continuous Compliance",
+    "Zero-Knowledge Proofs",
+    "Provable Assurance",
+    "OSCAL Mapping",
+    "Persistent Verification"
 ];
 
 export default function Preloader({ onComplete }: { onComplete: () => void }) {

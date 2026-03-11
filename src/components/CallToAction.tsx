@@ -3,6 +3,8 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import Magnetic from './Magnetic';
+import Padlock3D from './three/Padlock3D';
+
 
 export default function CallToAction() {
     const containerRef = useRef(null);
@@ -25,6 +27,11 @@ export default function CallToAction() {
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className="absolute w-[800px] h-[800px] bg-accent blur-[150px] rounded-full pointer-events-none -z-10"
             />
+
+            {/* 3D Padlock Visual */}
+            <div className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${isHovered ? 'opacity-40' : 'opacity-10'} z-0`}>
+                <Padlock3D />
+            </div>
 
             <div className="text-center relative z-10">
                 <motion.span

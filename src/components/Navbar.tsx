@@ -3,141 +3,119 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Magnetic from './Magnetic';
 
 export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [time, setTime] = useState("");
+    const [scrolled, setScrolled] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
-        const updateTime = () => {
-            const now = new Date();
-            setTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
         };
-        updateTime();
-        const interval = setInterval(updateTime, 1000);
-        return () => clearInterval(interval);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const links = [
+        "Home", "The problem", "The solution", "The product", "How it works", "About us", "Contact Us"
+    ];
+
     return (
-        <>
-            <motion.nav
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-12 py-8 mix-blend-difference"
-            >
-                <Link href="/" className="text-2xl font-bold tracking-tight text-white flex items-center">
-                    <span className="text-accent">+</span>CompliLedger<sup className="text-sm font-medium">®</sup>
+        <motion.nav
+            initial={{ y: -100 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className={`fixed top-0 left-0 w-full z-[100] transition-colors duration-500 ease-out ${scrolled ? 'bg-[#0b0c0f]/80 backdrop-blur-xl border-b border-white/[0.05]' : 'bg-transparent'
+                }`}
+        >
+            <div className="max-w-[1400px] mx-auto px-6 lg:px-12 h-[80px] flex items-center justify-between">
+
+                {/* Same 2 Same Logo as compliledger.com */}
+                <Link href="/" className="flex items-center">
+                    <img
+                        src="https://www.compliledger.com/Logo.png"
+                        alt="CompliLedger"
+                        className="h-8 md:h-10 object-contain w-auto transform hover:scale-[1.02] transition-transform"
+                    />
                 </Link>
 
-                <Magnetic strength={0.2}>
-                    <button
-                        onClick={() => setIsOpen(true)}
-                        className="flex flex-col gap-[6px] w-[32px] group"
+                {/* Desktop Navigation */}
+                <div className="hidden lg:flex items-center gap-8">
+                    {links.slice(0, 6).map((link) => (
+                        <Link
+                            key={link}
+                            href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+                            className="text-[13px] sm:text-sm font-medium text-white/70 hover:text-white transition-colors relative group"
+                        >
+                            {link}
+                            <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-500 transition-all duration-300 group-hover:w-full rounded-full opacity-0 group-hover:opacity-100" />
+                        </Link>
+                    ))}
+                </div>
+
+                {/* CTA Desktop */}
+                <div className="hidden lg:flex items-center gap-4">
+                    <Link
+                        href="#contact-us"
+                        className="text-sm font-medium text-white/70 hover:text-white transition-colors pr-4"
                     >
-                        <div className="w-full h-[2px] bg-white transition-transform group-hover:scale-x-110"></div>
-                        <div className="w-2/3 h-[2px] bg-white self-end transition-transform group-hover:scale-x-125"></div>
+                        Contact Us
+                    </Link>
+                    <button className="px-6 py-2.5 bg-white text-black font-semibold rounded-full text-sm hover:bg-white/90 transition-all transform hover:scale-[1.02] active:scale-100 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                        Get Started
                     </button>
-                </Magnetic>
-            </motion.nav>
+                </div>
 
-            {/* Full Screen Overlay */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ y: "-100%" }}
-                        animate={{ y: "0%" }}
-                        exit={{ y: "-100%" }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="fixed inset-0 z-[100] bg-[#111] text-white flex flex-col p-6 md:p-12 overflow-hidden"
+                {/* Mobile Menu Toggle */}
+                <div className="lg:hidden flex items-center">
+                    <button
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        className="flex flex-col gap-1.5 p-2"
+                        aria-label="Toggle Menu"
                     >
-                        <div className="flex justify-between items-center mb-16">
-                            <span className="text-2xl font-bold tracking-tight">
-                                <span className="text-accent">+</span>CompliLedger<sup className="text-sm font-medium">®</sup>
-                            </span>
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className="text-white hover:text-accent transition-colors text-3xl font-light"
-                            >
-                                ✕
+                        <motion.div
+                            animate={{ rotate: mobileMenuOpen ? 45 : 0, y: mobileMenuOpen ? 8 : 0 }}
+                            className="w-6 h-[2px] bg-white transition-transform origin-left"
+                        />
+                        <motion.div
+                            animate={{ opacity: mobileMenuOpen ? 0 : 1 }}
+                            className="w-6 h-[2px] bg-white transition-opacity"
+                        />
+                        <motion.div
+                            animate={{ rotate: mobileMenuOpen ? -45 : 0, y: mobileMenuOpen ? -8 : 0 }}
+                            className="w-6 h-[2px] bg-white transition-transform origin-left"
+                        />
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Menu Dropdown */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="lg:hidden bg-[#0b0c0f] border-b border-white/[0.05] overflow-hidden"
+                    >
+                        <div className="flex flex-col px-6 py-8 gap-6">
+                            {links.map((link) => (
+                                <Link
+                                    key={link}
+                                    href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="text-xl font-medium text-white/80 hover:text-white"
+                                >
+                                    {link}
+                                </Link>
+                            ))}
+                            <button className="mt-4 w-full py-4 bg-white text-black font-semibold rounded-full text-lg hover:bg-white/90 transition-all">
+                                Get Started
                             </button>
-                        </div>
-
-                        <div className="flex flex-col md:flex-row justify-between h-full pt-12 md:pt-24 gap-12">
-                            <div className="flex flex-col justify-end w-full md:w-1/3 order-3 md:order-1">
-                                <span className="text-white/50 text-sm uppercase mb-2">Local Time</span>
-                                <span className="text-accent text-5xl md:text-7xl font-bold tracking-tighter tabular-nums">{time}</span>
-                            </div>
-
-                            <div className="w-full md:w-1/3 flex flex-col gap-6 order-1 md:order-2">
-                                {['Home', 'Infrastructure', 'Solutions', 'How it Works', 'Ecosystem'].map((item, idx) => (
-                                    <motion.div
-                                        key={item}
-                                        initial={{ opacity: 0, x: -30 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.3 + idx * 0.1, duration: 0.6 }}
-                                    >
-                                        <Link
-                                            href="#"
-                                            onClick={() => setIsOpen(false)}
-                                            className="group relative overflow-hidden flex items-baseline gap-4 text-5xl md:text-6xl font-bold hover:text-accent transition-colors tracking-tight"
-                                        >
-                                            <div className="relative flex flex-col">
-                                                <motion.span
-                                                    className="inline-block"
-                                                    whileHover={{ y: '-100%' }}
-                                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                                >
-                                                    {item}
-                                                </motion.span>
-                                                <motion.span
-                                                    className="absolute top-full left-0 inline-block text-accent"
-                                                    whileHover={{ y: '-100%' }}
-                                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                                >
-                                                    {item}
-                                                </motion.span>
-                                            </div>
-                                            <span className="text-sm opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-2">→</span>
-                                        </Link>
-                                    </motion.div>
-                                ))}
-                            </div>
-
-                            <div className="w-full md:w-1/3 flex flex-col items-start md:items-end gap-4 order-2 md:order-3">
-                                <span className="text-white/50 text-sm uppercase mb-4">Socials</span>
-                                {['Instagram', 'Twitter / X', 'LinkedIn', 'Dribbble'].map((soc, idx) => (
-                                    <motion.a
-                                        key={soc}
-                                        href="#"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.5 + idx * 0.1, duration: 0.5 }}
-                                        className="group relative overflow-hidden text-2xl md:text-3xl font-medium hover:text-accent transition-colors flex items-center justify-between w-full md:w-auto md:gap-8 border-b border-white/10 md:border-none pb-2 md:pb-0"
-                                    >
-                                        <div className="relative flex flex-col h-10 overflow-hidden">
-                                            <motion.span
-                                                className="inline-block"
-                                                whileHover={{ y: '-100%' }}
-                                            >
-                                                {soc}
-                                            </motion.span>
-                                            <motion.span
-                                                className="absolute top-full left-0 inline-block text-accent"
-                                                whileHover={{ y: '-100%' }}
-                                            >
-                                                {soc}
-                                            </motion.span>
-                                        </div>
-                                        <span className="text-sm">↗</span>
-                                    </motion.a>
-                                ))}
-                            </div>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </>
+        </motion.nav>
     );
 }

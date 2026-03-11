@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import Chain3D from './three/Chain3D';
+
 
 const partners = [
     { year: 'ANCHOR', title: 'Algorand Protocol', project: 'Immutable Audit Anchoring', img: 'https://framerusercontent.com/images/m1X3CPZ5JCv6sVqH5a9SzUuuXTo.jpg', status: 'SYNCHRONIZED' },
@@ -20,6 +22,11 @@ export default function Awards() {
                 <span className="[writing-mode:vertical-lr] rotate-180 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Distribution Phase</span>
                 <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
                 <span className="text-accent font-bebas text-2xl tracking-tighter tabular-nums">004</span>
+            </div>
+
+            {/* 3D Background Visual */}
+            <div className="absolute right-0 top-0 w-[600px] h-[600px] pointer-events-none opacity-20 z-0">
+                <Chain3D />
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-8 relative z-10 border-l border-white/5 pl-12">

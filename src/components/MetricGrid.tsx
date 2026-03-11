@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import MetricChart3D from './three/MetricChart3D';
+
 
 const metrics = [
     { label: 'Network Uptime', value: '99.99%', sub: '// CONTINUOUS_VERIFICATION', color: 'text-accent-lime' },
@@ -12,12 +14,15 @@ const metrics = [
 export default function MetricGrid() {
     return (
         <section className="bg-black text-white w-full border-t border-white/10 relative overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-l border-white/5">
+            <div className="absolute inset-0 pointer-events-none opacity-30 z-0 flex items-center justify-center">
+                <MetricChart3D />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-l border-white/5 relative z-10">
                 {metrics.map((metric, idx) => (
                     <motion.div
                         key={idx}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                         className="p-12 md:p-16 border-r border-b border-white/10 flex flex-col gap-8 group hover:bg-white/[0.02] transition-colors duration-700"

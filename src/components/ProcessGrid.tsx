@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Helix3D from './three/Helix3D';
+
 
 const steps = [
     { id: '01', title: 'Ingest Securely', desc: 'Instead of full data access, we ingest minimal metadata, control signals, and configuration fingerprints.' },
@@ -15,6 +17,11 @@ export default function ProcessGrid() {
 
     return (
         <section className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32">
+
+            {/* 3D Visual Accent */}
+            <div className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20 z-0">
+                <Helix3D />
+            </div>
 
             {/* Phase Indicator */}
             <div className="absolute left-6 top-60 hidden xl:flex flex-col items-center gap-12 z-20">

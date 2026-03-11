@@ -3,6 +3,8 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useState, useRef } from 'react';
 import Magnetic from './Magnetic';
+import Globe3D from './three/Globe3D';
+
 
 const services = [
     { id: '01', title: 'Continuous Compliance', tools: 'Agentic AI / OSCAL / NIST', desc: 'Automated monitoring of systems and policies to ensure persistent adherence to regulatory standards through continuous posture verification.' },
@@ -28,6 +30,11 @@ export default function WhatWeDo() {
 
             {/* Ambient Red Splash Background Logic */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {/* 3D Node Globe */}
+                <div className="absolute right-[-10%] top-[40%] w-[1000px] h-[1000px] -translate-y-1/2 opacity-20 z-0">
+                    <Globe3D />
+                </div>
+
                 <AnimatePresence>
                     {hoveredId && (
                         <motion.div
@@ -106,8 +113,8 @@ function ServiceRow({ service, idx, isOpen, isHovered, onToggle, onHover, onLeav
             {/* Background Marquee Effect on Hover */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700">
                 <motion.div
-                    animate={{ x: [0, -1000] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    animate={{ x: [0, -500] }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                     className="whitespace-nowrap flex items-center h-full"
                 >
                     <span className="text-[15rem] font-black font-bebas text-white/[0.03] uppercase leading-none tracking-tighter">

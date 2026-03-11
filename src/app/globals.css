@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
+  --background: #0b0c0f;
   --foreground: #ffffff;
   --accent: #64748B;
   --accent-lime: #D0FF00;
@@ -18,7 +18,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #000000;
+    --background: #0b0c0f;
     --foreground: #ffffff;
     --accent: #64748B;
   }
@@ -33,7 +33,8 @@ body {
   position: relative;
 }
 
-/* Global Noise Overlay */
+/* Global Noise Overlay - Disabled for performance */
+/*
 body::before {
   content: "";
   position: fixed;
@@ -42,24 +43,35 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.15;
+  opacity: 0.05;
   pointer-events: none;
   z-index: 9999;
-  filter: contrast(150%) brightness(100%);
 }
+*/
 
-/* Portals/Edge Glow Effect */
+/* Portals/Edge Glow Effect - Optimized */
 body::after {
   content: "";
   position: fixed;
-  bottom: -10%;
-  right: -10%;
-  width: 50%;
-  height: 50%;
-  background: radial-gradient(circle, rgba(100, 116, 139, 0.1) 0%, transparent 70%);
-  filter: blur(80px);
+  bottom: -5%;
+  right: -5%;
+  width: 40%;
+  height: 40%;
+  background: radial-gradient(circle, rgba(100, 116, 139, 0.08) 0%, transparent 70%);
   pointer-events: none;
   z-index: 1000;
+  /* Blur removed as it's a huge performance hit during scroll */
+}
+
+/* Performance optimization for long pages - Commented out as it may interfere with 3D canvas visibility */
+section {
+  /* content-visibility: auto; */
+  contain-intrinsic-size: 1px 1000px;
+}
+
+/* Hero section should always be visible to avoid flickering */
+.hero-section {
+  content-visibility: visible;
 }
 
 /* Custom Scrollbar */

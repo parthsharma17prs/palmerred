@@ -19,7 +19,7 @@ export default function SystemBlueprint() {
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
     return (
-        <section ref={targetRef} className="relative h-[300vh] bg-black">
+        <section ref={targetRef} className="relative h-[180vh] bg-black">
             <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
                 <div className="px-6 md:px-12 mb-12 xl:pl-44">
                     <span className="text-accent font-bebas text-sm tracking-[0.4em] uppercase flex items-center gap-4">
@@ -32,7 +32,7 @@ export default function SystemBlueprint() {
 
                 <motion.div style={{ x }} className="flex gap-12 px-6 md:px-12 xl:pl-44">
                     {blocks.map((block, i) => (
-                        <div key={i} className="min-w-[450px] md:min-w-[600px] h-[400px] md:h-[500px] bg-white/[0.03] border border-white/10 rounded-[2rem] p-12 flex flex-col justify-between relative group hover:border-accent/40 transition-colors duration-700 shadow-2xl">
+                        <div key={i} className="min-w-[450px] md:min-w-[600px] h-[400px] md:h-[500px] bg-white/[0.03] border border-white/10 rounded-[2rem] p-12 flex flex-col justify-between relative group hover:border-accent/40 transition-colors duration-700">
                             <span className="text-8xl font-bebas text-white/5 group-hover:text-accent/10 transition-colors duration-700 absolute top-4 right-8 select-none">
                                 {block.icon}
                             </span>

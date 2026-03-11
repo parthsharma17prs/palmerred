@@ -10,10 +10,10 @@ export default function Marquee({ text }: { text: string }) {
         <div className="w-full border-t border-b border-white/10 bg-white text-black py-6 md:py-8 overflow-hidden relative flex -rotate-3 scale-110 origin-center z-20 shadow-2xl">
             <motion.div
                 className="whitespace-nowrap flex font-normal font-bebas text-4xl md:text-6xl lg:text-8xl uppercase tracking-tighter pl-4 gap-16 md:gap-32"
-                animate={{ x: [0, -2000] }}
-                transition={{ ease: 'linear', duration: 30, repeat: Infinity }}
+                animate={{ x: [0, -1000] }}
+                transition={{ ease: 'linear', duration: 20, repeat: Infinity }}
             >
-                {Array.from({ length: 15 }).map((_, i) => (
+                {Array.from({ length: 6 }).map((_, i) => (
                     <div key={i} className="flex items-center gap-16 md:gap-32">
                         <span>{text}</span>
                         <span className="text-accent opacity-30">•</span>

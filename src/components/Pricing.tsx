@@ -2,6 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import OrbitingTokens3D from './three/OrbitingTokens3D';
+
 
 export default function Pricing() {
     const [isSubscription, setIsSubscription] = useState(true);
@@ -12,24 +14,23 @@ export default function Pricing() {
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
                 <motion.div
                     animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.1, 0.2, 0.1],
-                        x: [0, 100, 0],
-                        y: [0, -50, 0]
+                        opacity: [0.1, 0.15, 0.1],
                     }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-accent/20 rounded-full blur-[150px]"
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-accent/10 rounded-full blur-[80px]"
                 />
                 <motion.div
                     animate={{
-                        scale: [1, 1.3, 1],
                         opacity: [0.05, 0.1, 0.05],
-                        x: [0, -100, 0],
-                        y: [0, 50, 0]
                     }}
-                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-accent/10 rounded-full blur-[120px]"
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                    className="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[80px]"
                 />
+            </div>
+
+            {/* 3D Orbiting Tokens */}
+            <div className="absolute inset-x-0 top-[20%] h-[800px] pointer-events-none opacity-40 z-0">
+                <OrbitingTokens3D />
             </div>
 
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-12 relative z-10">
@@ -52,7 +53,7 @@ export default function Pricing() {
                     </p>
 
                     {/* Toggle Switch */}
-                    <div className="relative p-1.5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 flex gap-2 w-fit">
+                    <div className="relative p-1.5 bg-white/5 rounded-2xl border border-white/10 flex gap-2 w-fit">
                         <motion.div
                             layout
                             className="absolute inset-y-1.5 bg-accent rounded-xl shadow-[0_0_20px_rgba(100,116,139,0.3)]"

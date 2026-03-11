@@ -22,6 +22,11 @@ import CallToAction from '@/components/CallToAction';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import Preloader from '@/components/Preloader';
+import Pricing from '@/components/Pricing';
+
+
+import PrivacyFirst from '@/components/PrivacyFirst';
+
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,10 +52,12 @@ export default function Home() {
         <MetricGrid />
         <CounterSection />
         <ProcessGrid />
+        <Pricing />
 
         <SystemBlueprint />
 
         <GiantText text="+COMPLILEDGER®" />
+        <PrivacyFirst />
 
         <StickySection index={1}>
           <FeaturedWorks />
