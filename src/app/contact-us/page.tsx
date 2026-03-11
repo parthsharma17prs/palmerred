@@ -20,7 +20,7 @@ function FadeInSection({ children, delay = 0, className = "" }: { children: Reac
 
 export default function ContactUsPage() {
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-accent selection:text-black pt-32 pb-20 overflow-hidden">
+        <main className="min-h-screen bg-[#0b0c0f] text-white selection:bg-accent selection:text-black pt-32 pb-20 overflow-hidden">
             <Navbar />
 
             {/* Hero Section */}
@@ -43,9 +43,17 @@ export default function ContactUsPage() {
                 >
                     Ready to prove it?
                 </motion.h1>
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="text-xl text-white/50 max-w-2xl mx-auto mb-12"
+                >
+                    Book a specialized demonstration or reach out to our cryptographic architecture team.
+                </motion.p>
             </div>
 
-            {/* Main Contact Grid */}
+            {/* Contact Grid */}
             <div className="max-w-[1200px] mx-auto px-6 py-12 border-t border-white/5 mb-24">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                     {/* General Inquiry */}
@@ -59,8 +67,8 @@ export default function ContactUsPage() {
                         <p className="text-white/60 mb-6 leading-relaxed">
                             For general inquiries, demonstrations, or to discuss how Zero-Knowledge Proofs can secure your next audit.
                         </p>
-                        <a href="mailto:hello@compliledger.com" className="inline-flex text-xl text-white font-mono hover:text-white/70 transition-colors border-b border-white/30 pb-1">
-                            hello@compliledger.com
+                        <a href="mailto:maranda@compliledger.com" className="inline-flex text-xl text-white font-mono hover:text-white/70 transition-colors border-b border-white/30 pb-1">
+                            maranda@compliledger.com
                         </a>
                     </FadeInSection>
 
@@ -78,7 +86,7 @@ export default function ContactUsPage() {
                         </p>
                         <div className="text-xl font-mono text-white/90">
                             San Francisco, CA<br />
-                            <span className="text-sm text-white/50">United States</span>
+                            <span className="text-sm text-white/50 underline">United States</span>
                         </div>
                     </FadeInSection>
                 </div>
@@ -87,18 +95,23 @@ export default function ContactUsPage() {
             {/* Newsletter/Footer Callout */}
             <div className="max-w-[1200px] mx-auto px-6 py-24 text-center border-t border-white/5">
                 <FadeInSection>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Don't wait for your next audit.</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4">Don't wait for your next audit.</h2>
                     <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
                         Connect with our engineering team today to see a live demonstration of our continuous validation protocol.
                     </p>
-                    <a href="mailto:hello@compliledger.com" className="inline-block px-8 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform">
-                        Request Demonstration
-                    </a>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="mailto:maranda@compliledger.com" className="px-10 py-5 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                            Book a Demo
+                        </a>
+                        <button className="px-10 py-5 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/5 transition-colors">
+                            Request Info Pack
+                        </button>
+                    </div>
                 </FadeInSection>
             </div>
 
             {/* Background Texture Detail */}
-            <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay pointer-events-none z-[-1]" />
+            <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay pointer-events-none z-50" />
 
             <Footer />
         </main>

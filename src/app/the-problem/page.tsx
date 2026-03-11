@@ -19,8 +19,25 @@ function FadeInSection({ children, delay = 0, className = "" }: { children: Reac
 }
 
 export default function TheProblemPage() {
+    const problems = [
+        "Centralize sensitive data in 3rd party systems",
+        "Grant broad system access to external auditors",
+        "Manually collect evidence via screenshots and logs",
+        "Rely on point-in-time audits that expire instantly",
+        "Expose more than regulators actually require"
+    ];
+
+    const beliefs = [
+        "Compliance should be provable, not subjective",
+        "Privacy should be preserved, not traded",
+        "Proof should be engineered, not assumed",
+        "Evidence should be cryptographic, not anecdotal",
+        "Audits should be continuous, not episodic",
+        "Regulators should verify outcomes — not inspect systems"
+    ];
+
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-accent selection:text-black pt-32 pb-20 overflow-hidden">
+        <main className="min-h-screen bg-[#0b0c0f] text-white selection:bg-accent selection:text-black pt-32 pb-20 overflow-hidden">
             <Navbar />
 
             {/* Hero Section */}
@@ -51,24 +68,39 @@ export default function TheProblemPage() {
                     className="text-lg md:text-2xl text-white/50 max-w-3xl leading-relaxed mx-auto text-left flex flex-col items-center"
                 >
                     <p className="mb-6 font-semibold text-white/90">Organizations are forced to:</p>
-                    <ul className="space-y-4 mb-8 text-left inline-block">
-                        <li className="flex items-start gap-4">
-                            <span className="text-red-500 mt-1">•</span>
-                            <span>Hand over sensitive logs and architectural data</span>
-                        </li>
-                        <li className="flex items-start gap-4">
-                            <span className="text-red-500 mt-1">•</span>
-                            <span>Grant external auditors access to internal environments</span>
-                        </li>
-                        <li className="flex items-start gap-4">
-                            <span className="text-red-500 mt-1">•</span>
-                            <span>Rely on trust instead of math</span>
-                        </li>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-left w-full mt-4">
+                        {problems.map((problem, i) => (
+                            <li key={i} className="flex items-start gap-4 p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors">
+                                <span className="text-red-500 mt-1">•</span>
+                                <span className="text-white/80 text-base">{problem}</span>
+                            </li>
+                        ))}
                     </ul>
-                    <p className="text-white/80 font-semibold mb-6">
+                    <p className="text-white/80 font-semibold mb-6 text-center">
                         This approach increases risk, slows innovation, and erodes proof.
                     </p>
                 </motion.div>
+            </div>
+
+            {/* Section: Our Beliefs */}
+            <div className="max-w-[1200px] mx-auto px-6 py-24 border-t border-white/5">
+                <FadeInSection className="text-center mb-16">
+                    <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Our Belief</h2>
+                    <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+                        The fundamental way compliance is conducted hasn't changed in decades, while technology has evolved exponentially.
+                    </p>
+                </FadeInSection>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {beliefs.map((belief, i) => (
+                        <FadeInSection key={i} delay={i * 0.1} className="p-8 bg-white/5 border border-white/10 rounded-2xl flex flex-col items-center text-center">
+                            <div className="w-12 h-12 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center mb-6">
+                                <span className="text-red-500 font-mono text-lg">{i + 1}</span>
+                            </div>
+                            <p className="text-lg font-medium text-white/90">{belief}</p>
+                        </FadeInSection>
+                    ))}
+                </div>
             </div>
 
             {/* Section 1: The Cost of Manual Audits */}
@@ -128,7 +160,7 @@ export default function TheProblemPage() {
             </div>
 
             {/* Background Texture Detail */}
-            <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay pointer-events-none z-[-1]" />
+            <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay pointer-events-none z-50" />
 
             <Footer />
         </main>

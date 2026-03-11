@@ -19,8 +19,35 @@ function FadeInSection({ children, delay = 0, className = "" }: { children: Reac
 }
 
 export default function TheSolutionPage() {
+    const solutions = [
+        {
+            title: "Continuous compliance",
+            description: "Prove you are compliant without mirroring systems, copying logs, or centralizing raw evidence."
+        },
+        {
+            title: "Proof instead of privileged access",
+            description: "Share cryptographic proofs instead of screenshots, exports, or direct access to sensitive environments."
+        },
+        {
+            title: "Automation instead of spreadsheets",
+            description: "AI agents keep controls mapped, tested, and up to date as your systems change."
+        },
+        {
+            title: "Privacy instead of exposure",
+            description: "Verification events are anchored across Algorand, Aleo, and Zcash for independent verifiability."
+        }
+    ];
+
+    const privacyPrinciples = [
+        "Data minimization by default",
+        "Proof instead of disclosure",
+        "Identity without centralized accounts",
+        "Zero-knowledge verification",
+        "No customer data monetization"
+    ];
+
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-accent selection:text-black pt-32 pb-20 overflow-hidden">
+        <main className="min-h-screen bg-[#0b0c0f] text-white selection:bg-accent selection:text-black pt-32 pb-20 overflow-hidden">
             <Navbar />
 
             {/* Hero Section */}
@@ -32,7 +59,7 @@ export default function TheSolutionPage() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 text-sm font-medium mb-8"
                 >
                     <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                    How we fix it
+                    Our Solution
                 </motion.div>
 
                 <motion.h1
@@ -48,17 +75,34 @@ export default function TheSolutionPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-5xl w-full"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-5xl w-full"
                 >
-                    <div className="bg-white/5 border border-white/10 p-8 rounded-2xl">
-                        <h3 className="text-xl font-bold mb-3 text-white">Continuous Compliance</h3>
-                        <p className="text-white/60">Prove compliance without mirroring systems, copying logs, or centralizing raw evidence.</p>
-                    </div>
-                    <div className="bg-white/5 border border-white/10 p-8 rounded-2xl">
-                        <h3 className="text-xl font-bold mb-3 text-white">Proof Instead of Access</h3>
-                        <p className="text-white/60">Share cryptographic proofs instead of screenshots, exports, or direct access.</p>
-                    </div>
+                    {solutions.map((item, i) => (
+                        <div key={i} className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-colors group">
+                            <h3 className="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">{item.title}</h3>
+                            <p className="text-white/60">{item.description}</p>
+                        </div>
+                    ))}
                 </motion.div>
+            </div>
+
+            {/* Section: Privacy is the Architecture */}
+            <div className="max-w-[1200px] mx-auto px-6 py-24 border-t border-white/5">
+                <FadeInSection className="text-center mb-16">
+                    <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Privacy in Architecture</h2>
+                    <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+                        Privacy is not a feature we added later. It is enforced structurally through every line of code.
+                    </p>
+                </FadeInSection>
+
+                <div className="max-w-4xl mx-auto space-y-4">
+                    {privacyPrinciples.map((principle, i) => (
+                        <FadeInSection key={i} delay={i * 0.1} className="flex items-center gap-6 p-6 bg-white/5 border border-white/10 rounded-xl">
+                            <div className="w-2 h-2 rounded-full bg-blue-500" />
+                            <p className="text-xl text-white/90">{principle}</p>
+                        </FadeInSection>
+                    ))}
+                </div>
             </div>
 
             {/* Section 1: ZK Proofs */}
@@ -84,7 +128,7 @@ export default function TheSolutionPage() {
                 <FadeInSection className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div className="order-2 md:order-1 bg-white/5 border border-white/10 p-8 rounded-3xl relative overflow-hidden h-64 flex items-center justify-center">
                         <div className="absolute inset-0 bg-purple-500/5 blur-[100px]" />
-                        <div className="flex flex-col gap-4 w-full">
+                        <div className="flex flex-col gap-4 w-full px-8">
                             <div className="w-full h-8 bg-white/5 rounded-md animate-pulse" />
                             <div className="w-3/4 h-8 bg-white/5 rounded-md animate-pulse delay-75" />
                             <div className="w-5/6 h-8 bg-purple-500/20 border border-purple-500/30 rounded-md" />
@@ -100,7 +144,7 @@ export default function TheSolutionPage() {
             </div>
 
             {/* Section 3: Immutable Trail */}
-            <div className="max-w-[1200px] mx-auto px-6 py-24 text-center">
+            <div className="max-w-[1200px] mx-auto px-6 py-24 text-center border-t border-white/5">
                 <FadeInSection>
                     <div className="inline-block p-[1px] rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8">
                         <div className="px-6 py-2 bg-black rounded-full border border-white/10 text-sm tracking-widest text-white/70">
@@ -117,7 +161,7 @@ export default function TheSolutionPage() {
             </div>
 
             {/* Background Texture Detail */}
-            <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay pointer-events-none z-[-1]" />
+            <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay pointer-events-none z-50" />
 
             <Footer />
         </main>
