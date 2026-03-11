@@ -64,7 +64,7 @@ export default function Navbar() {
                 {/* Logo */}
                 <Link href="/" className="flex items-center">
                     <img
-                        src="https://www.compliledger.com/Logo.png"
+                        src="/Logo.png"
                         alt="CompliLedger"
                         className={`object-contain w-auto transform hover:scale-[1.02] transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isConcise ? 'h-5' : 'h-8 md:h-10'}`}
                     />
